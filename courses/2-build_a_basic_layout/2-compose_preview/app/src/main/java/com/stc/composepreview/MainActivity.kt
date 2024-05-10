@@ -59,7 +59,11 @@ fun JetpackComposeText(
     val image = painterResource(R.drawable.bg_compose_background)
     Column (
         verticalArrangement = Arrangement.Top,
-        modifier = modifier
+        modifier = Modifier
+            .padding(
+                top = 30.dp
+            )
+
     ) {
         Image (
             painter = painterResource(R.drawable.bg_compose_background),
