@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Lemonade</string>
+    <string name="android">Android</string>
+    <string name="text_stage1_lemon_tree">Tap the lemon tree to select a lemon</string>
+    <string name="text_stage2_lemon">Keep tapping the lemon to squeeze it</string>
+    <string name="text_stage3_lemonade_in_glass">Tap the lemonade to drink it</string>
+    <string name="text_stage4_empty_glass">Tap the empty glass to start again</string>
+
+    <string name="contentDescription_lemon_tree">Lemon tree</string>
+    <string name="contentDescription_lemon_only">Lemon</string>
+    <string name="contentDescription_glass_full_lemonade">Glass of lemonade</string>
+    <string name="contentDescription_glass_empty">Empty glass</string>
+
+</resources>
