@@ -1,11 +1,20 @@
 package com.stc.artspace.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,11 +22,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.stc.artspace.R
 import com.stc.artspace.ui.theme.ArtSpaceTheme
 
@@ -32,9 +47,15 @@ class ArtContent {
                     contentDescription = stringResource(R.string.hello)
                 )
             }
-            Column() {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(
-                    text = title
+                    text = title,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = artist
@@ -43,13 +64,47 @@ class ArtContent {
         }
     }
 
+
+    @Composable
+    fun ToggleButton(
+        onClick: () -> Unit,
+        text: String,
+        modifier: Modifier = Modifier
+    ) {
+        Button(
+            onClick = { onClick() },
+            colors = ButtonDefaults.buttonColors(
+                contentColor = Color.Black,
+                containerColor = Color(0xFFcce0e0)
+            ),
+            shape = RectangleShape,
+            contentPadding = PaddingValues(
+                horizontal = 50.dp,
+                vertical = 5.dp
+            ),
+            ) {
+            Text(
+                text = text,
+            )
+        }
+    }
+
     @Composable
     fun MainScreen() {
 
         var imageIndex by remember { mutableStateOf(0)}
 
-        Column() {
-            Box {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+
+        ) {
+            Box (
+                modifier = Modifier
+                    .padding(
+                        horizontal = 25.dp
+                    )
+            ) {
                 var title = "Title"
                 var artist = "Artist"
                 var painter = painterResource(id = R.drawable.image_1)
@@ -97,18 +152,25 @@ class ArtContent {
                 ShowImage(painterArt = painter, contentDescription = contentDescription, title = title, artist = artist)
 
             }
+
+            Spacer(modifier = Modifier.height(30.dp))
+
             Box() {
-                Row() {
-                    Button(onClick = { imageIndex-- }) {
-                        Text(
-                            text = stringResource(id = R.string.btn_previous),
-                        )
-                    }
-                    Button(onClick = { imageIndex++ }) {
-                        Text(
-                            text = stringResource(id = R.string.btn_next),
-                        )
-                    }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    ToggleButton(
+                        onClick = { imageIndex-- },
+                        text = stringResource(id = R.string.btn_previous),
+                        modifier = Modifier
+                    )
+                    ToggleButton(
+                        onClick = { imageIndex++ },
+                        text = stringResource(id = R.string.btn_next),
+                        modifier = Modifier
+                    )
                 }
             }
         }
