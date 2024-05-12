@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Art Space</string>
+    <string name="hello">hello</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_next">Next</string>
+
+    <string name="imageTitle_1">"DAF"</string>
+    <string name="imageTitle_2">"Mercedes"</string>
+    <string name="imageTitle_3">"Volvo"</string>
+    <string name="imageTitle_4">"Mercedes"</string>
+    <string name="imageTitle_5">"Renault"</string>
+
+    <string name="contentDescription_1">"Loading loco-engine to cargo plane."</string>
+    <string name="contentDescription_2">"Going through cobble streets over tram track."</string>
+    <string name="contentDescription_3">"New and older model Volvos."</string>
+    <string name="contentDescription_4">"Haboob/Sandstorm in Africa."</string>
+    <string name="contentDescription_5">"Off to snow-plains."</string>
+
+
+</resources>
