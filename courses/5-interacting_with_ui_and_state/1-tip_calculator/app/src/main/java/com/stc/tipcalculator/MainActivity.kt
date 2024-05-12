@@ -5,9 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -21,11 +26,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.stc.tipcalculator.Constants.STRING_EMPTY
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.stc.tipcalculator.constants.Constants
+import com.stc.tipcalculator.constants.Constants.STRING_EMPTY
 import com.stc.tipcalculator.ui.theme.TipCalculatorTheme
+import java.text.NumberFormat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +54,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-object Constants {
-    const val STRING_EMPTY = ""
 }
 
 @Composable
@@ -70,9 +78,14 @@ fun DisplayTipAmount(billAmountString: String, tipPercentageString: String, flag
     } catch (exception: Exception) {
         tipAmount = 0.0
     }
+    val tipAmountFormatted = NumberFormat.getCurrencyInstance().format(tipAmount)
 
     Text(
-        text = stringResource(id = R.string.tip_amount, tipAmount.toString())
+        text = stringResource(id = R.string.tip_amount, tipAmountFormatted.toString()),
+        fontSize = 35.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier
+            .testTag(Constants.TEST_TAG_TEXT_TIP_AMOUNT)
     )
 }
 
@@ -85,11 +98,16 @@ fun TippingScreen() {
     
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .padding(
+                start = 25.dp,
+                end = 25.dp
+            )
     ) {
         Text(
-            text = stringResource(id = R.string.calculate_tip)
+            text = stringResource(id = R.string.calculate_tip),
         )
+        Spacer (modifier = Modifier.height(15.dp))
 
 
         TextField(
@@ -101,9 +119,16 @@ fun TippingScreen() {
                 )
             },
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
-            )
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(Constants.TEST_TAG_TEXTFIELD_BILl_AMOUNT),
+            singleLine =  true
         )
+
+        Spacer (modifier = Modifier.height(20.dp))
 
         TextField(
             value = tipPercentage,
@@ -114,12 +139,28 @@ fun TippingScreen() {
                 )
             },
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
-            )
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(Constants.TEST_TAG_TEXTFIELD_TIP_PERCENTAGE),
+            singleLine =  true
         )
-        Row() {
+
+        Spacer (modifier = Modifier.height(10.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+
+        ) {
             Text (
-                text = stringResource(id = R.string.round_up_tip)
+                text = stringResource(id = R.string.round_up_tip),
+                modifier = Modifier
+                    .padding(
+                        top = 10.dp
+                    )
             )
             Switch(
                 checked = flagRoundTip,
@@ -129,7 +170,13 @@ fun TippingScreen() {
             )
         }
 
-        DisplayTipAmount(billAmount, tipPercentage, flagRoundTip)
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            DisplayTipAmount(billAmount, tipPercentage, flagRoundTip)
+        }
+
 
     }
 }
@@ -140,6 +187,12 @@ fun TippingScreen() {
 @Composable
 fun GreetingPreview() {
     TipCalculatorTheme {
-        TippingScreen()
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            TippingScreen()
+        }
     }
+
 }
