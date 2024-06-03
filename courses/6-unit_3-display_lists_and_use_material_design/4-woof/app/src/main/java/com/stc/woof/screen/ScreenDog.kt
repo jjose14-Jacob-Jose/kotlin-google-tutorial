@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,13 +34,15 @@ import com.stc.woof.ui.theme.WoofTheme
 class ScreenDog {
 
     @Composable
-    fun Show(dog: Dog) {
+    fun Show(
+        dog: Dog,
+        modifier : Modifier = Modifier
+    ) {
         Card() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(dimensionResource(id = R.dimen.padding_small))
-
             ) {
                 Image(
                     painter = painterResource(id = dog.imageResourceId),
@@ -60,6 +65,7 @@ class ScreenDog {
                         text = stringResource(id = R.string.years_old, dog.age),
                         style = MaterialTheme.typography.bodyLarge
                     )
+
                 }
             }
         }
@@ -71,16 +77,19 @@ class ScreenDog {
     @Composable
     fun PreviewDogItem() {
         WoofTheme {
+            val modifier = Modifier
             Surface(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
             ) {
-                Show(DataSourceDog.listDogs.get(0))
+                Show(
+                    DataSourceDog.listDogs.get(0),
+                    modifier
+                )
             }
         }
     }
 
 
 }
-
 

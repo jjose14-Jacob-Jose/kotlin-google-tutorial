@@ -1,6 +1,7 @@
 package com.stc.woof.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,15 +28,16 @@ import com.stc.woof.ui.theme.WoofTheme
 class TopBar {
 
     @Composable
-    fun Show() {
+    fun Show(modifier: Modifier = Modifier) {
         Row(
-            modifier = Modifier
+            modifier = modifier
+                .padding(top = 13.dp)
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
 
         ) {
             Image(
-                modifier = Modifier
+                modifier = modifier
                     .height(dimensionResource(id = R.dimen.image_size))
                     .padding(dimensionResource(id = R.dimen.padding_small)),
                 painter = painterResource(R.drawable.ic_woof_logo),
@@ -52,10 +55,11 @@ class TopBar {
 @Composable
 fun PreviewScreen() {
     WoofTheme {
+        val modifier = Modifier
         Surface(
-            modifier = Modifier
+
         ) {
-            TopBar().Show()
+            TopBar().Show(modifier)
         }
     }
 }
