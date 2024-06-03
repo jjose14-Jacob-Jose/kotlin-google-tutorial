@@ -98,19 +98,10 @@ class ScreenDog {
                         .clickable { isHobbyVisible = !isHobbyVisible },
                     contentAlignment = Alignment.BottomEnd
                 ) {
-                    if(isHobbyVisible) {
-                        Image (
-                            painter = painterResource(id = R.drawable.keyboard_arrow_down_24px),
-                            contentDescription = "Keyboard arrow pointing down",
-                        )
-                    } else {
-                        Image (
-                            painter = painterResource(id = R.drawable.keyboard_arrow_up_24px),
-                            contentDescription = "Keyboard arrow pointing up",
-                        )
-
-                    }
-
+                    Image (
+                        painter = painterResource(id = if(isHobbyVisible)  R.drawable.keyboard_arrow_up_24px else R.drawable.keyboard_arrow_down_24px),
+                        contentDescription = "Keyboard arrow pointing down",
+                    )
                 }
 
             }
