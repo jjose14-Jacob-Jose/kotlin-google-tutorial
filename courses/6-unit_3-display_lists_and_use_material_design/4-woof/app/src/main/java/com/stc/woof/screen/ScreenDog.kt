@@ -1,5 +1,8 @@
 package com.stc.woof.screen
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -51,7 +54,13 @@ class ScreenDog {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(dimensionResource(id = R.dimen.padding_small)),
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .animateContentSize(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioHighBouncy,
+                            stiffness = Spring.StiffnessMedium
+                        )
+                    ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
